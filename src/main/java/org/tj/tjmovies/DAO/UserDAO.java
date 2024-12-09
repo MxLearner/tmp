@@ -1,8 +1,12 @@
 package org.tj.tjmovies.DAO;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.tj.tjmovies.Entity.Movies;
-import org.tj.tjmovies.Entity.Users;
+import org.tj.tjmovies.Entity.User;
 
-public interface UserDAO extends JpaRepository<Users, String> {
+import java.util.Optional;
+
+public interface UserDAO extends JpaRepository<User, String> {
+    Optional<User> findByUsername(String username);
+
+    Optional<User> findByEmail(String email);
 }

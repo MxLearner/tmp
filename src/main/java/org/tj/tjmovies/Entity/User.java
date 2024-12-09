@@ -7,7 +7,7 @@ import org.tj.tjmovies.Entity.Enum.UserRole;
 @Entity
 @Data
 @Table(name="users")
-public class Users {
+public class User {
     @Id
     @Column(name="user_id")
     private int userId;
