@@ -5,11 +5,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
+
 import java.util.Date;
 
 @Entity
 @Data
-@Table(name="movies")
+@Table(name = "movies")
 public class Movie {
     @Id
     private int id;
@@ -20,12 +21,12 @@ public class Movie {
 
     private float rating;
 
-    @Column(name="release_date")
+    @Column(name = "release_date")
     private Date releaseDate;
 
-    @Column(name="created_at")
+    @Column(name = "created_at")
     private Date createdAt;
 
-    @Column(name="updated_at")
+    @Column(name = "updated_at")
     private Date updatedAt;
 }

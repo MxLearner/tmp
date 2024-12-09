@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.HttpServerErrorException;
 import org.tj.tjmovies.Service.UserService;
 
 import java.net.URI;
@@ -34,8 +33,7 @@ public class UserController {
     public ResponseEntity<String> Login(String username, String password) {
         if (userService.checkPassword(username, password)) {
             return ResponseEntity.ok("登录成功");
-        }
-        else {
+        } else {
             return ResponseEntity
                     .status(HttpStatus.UNAUTHORIZED)
                     .body("用户名或密码错误");

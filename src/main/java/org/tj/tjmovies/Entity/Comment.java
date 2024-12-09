@@ -10,7 +10,7 @@ import java.util.Date;
 
 @Entity
 @Data
-@Table(name="comments")
+@Table(name = "comments")
 public class Comment {
     @Id
     private int id;
@@ -21,9 +21,9 @@ public class Comment {
 
     private String content;
 
-    @Column(name="created_at")
+    @Column(name = "created_at")
     private Date createdAt;
 
-    @Column(name="updated_at")
+    @Column(name = "updated_at")
     private Date updatedAt;
 }
