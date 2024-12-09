@@ -5,21 +5,23 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
-
 import java.util.Date;
 
 @Entity
 @Data
-@Table(name="comments")
-public class Comments {
+@Table(name="movies")
+public class Movie {
     @Id
     private int id;
 
-    private int userId;
+    private String title;
 
-    private int movieId;
+    private String description;
 
-    private String content;
+    private float rating;
+
+    @Column(name="release_date")
+    private Date releaseDate;
 
     @Column(name="created_at")
     private Date createdAt;

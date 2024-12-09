@@ -1,8 +1,7 @@
 package org.tj.tjmovies.DAO;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.tj.tjmovies.Entity.Comments;
-import org.tj.tjmovies.Entity.Movies;
+import org.tj.tjmovies.Entity.Comment;
 
-public interface CommentDAO extends JpaRepository<Comments, String> {
+public interface CommentDAO extends JpaRepository<Comment, String> {
 }
