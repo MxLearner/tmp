@@ -9,7 +9,7 @@ import org.tj.tjmovies.Entity.Enum.UserRole;
 @Table(name = "users")
 public class User {
     @Id
-    @Column(name = "user_id")
+    @Column(name = "userid")
     private int userId;
 
     private String username;
@@ -22,6 +22,6 @@ public class User {
     @Column(columnDefinition = "enum")
     private UserRole role;
 
-    @Column(name = "is_active")
+    @Column(name = "isactive")
     private int isActive;
 }

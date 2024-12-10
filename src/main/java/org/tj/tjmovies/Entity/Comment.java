@@ -13,17 +13,20 @@ import java.util.Date;
 @Table(name = "comments")
 public class Comment {
     @Id
+    @Column(name = "commentsid")
     private int id;
 
+    @Column(name = "userid")
     private int userId;
 
+    @Column(name = "movieid")
     private int movieId;
 
     private String content;
 
-    @Column(name = "created_at")
+    @Column(name = "createdat")
     private Date createdAt;
 
-    @Column(name = "updated_at")
+    @Column(name = "updatedat")
     private Date updatedAt;
 }
