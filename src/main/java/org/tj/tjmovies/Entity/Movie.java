@@ -19,20 +19,26 @@ public class Movie {
     @Column(name = "moviestitle")
     private String title;
 
-    @Column(name = "moviesdescription")
-    private String description;
+    @Column(name = "text")
+    private String text;
 
-    @Column(name = "moviesrating")
+    @Column(name = "rating")
     private float rating;
 
     @Column(name = "releasedate")
     private Date releaseDate;
 
-    @Column(name = "createdat")
-    private Date createdAt;
+    @Column(name = "director")
+    private String director ;
 
-    @Column(name = "updatedat")
-    private Date updatedAt;
+    @Column(name = "duration")
+    private String duration;
+
+    @Column(name = "language")
+    private String language;
+
+    @Column(name = "actor")
+    private String actor;
 
     @Column(name = "imagesrc")
     private String imageSrc;

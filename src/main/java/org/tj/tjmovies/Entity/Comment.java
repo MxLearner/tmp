@@ -6,14 +6,15 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
 @Data
-@Table(name = "comments")
+@Table(name = "review")
 public class Comment {
     @Id
-    @Column(name = "commentsid")
+    @Column(name = "reviewid")
     private int id;
 
     @Column(name = "userid")
@@ -22,11 +23,12 @@ public class Comment {
     @Column(name = "movieid")
     private int movieId;
 
-    private String content;
+    @Column(name = "text")
+    private String text;
 
-    @Column(name = "createdat")
-    private Date createdAt;
+    @Column(name = "reviewdate")
+    private Date reviewDate;
 
-    @Column(name = "updatedat")
-    private Date updatedAt;
+    @Column(name = "score", precision = 3, scale = 1) // 总位数3，小数位数1
+    private BigDecimal score;
 }
