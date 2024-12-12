@@ -1,9 +1,6 @@
 package org.tj.tjmovies.Entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.Date;
@@ -14,7 +11,8 @@ import java.util.Date;
 public class Movie {
     @Id
     @Column(name = "moviesid")
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(name = "moviestitle")
     private String title;

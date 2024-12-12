@@ -6,5 +6,7 @@ import org.tj.tjmovies.Entity.Movie;
 import java.util.List;
 
 public interface MovieDAO extends JpaRepository<Movie, String> {
-    List<Movie> findAllByTitle(String title);
+    List<Movie> findAllById(Long id);
+
+    List<Movie> findAllByTitleContaining(String title);
 }

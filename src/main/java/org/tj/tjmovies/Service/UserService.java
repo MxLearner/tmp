@@ -3,6 +3,7 @@ package org.tj.tjmovies.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.tj.tjmovies.DAO.UserDAO;
+import org.tj.tjmovies.Entity.Enum.UserRole;
 import org.tj.tjmovies.Entity.User;
 
 @Service
@@ -26,8 +27,9 @@ public class UserService {
         user.setUsername(username);
         user.setPassword(password);
         user.setEmail(email);
+        user.setRole(UserRole.user);
         userDAO.save(user);
-        return Integer.toString(user.getUserId());
+        return Long.toString(user.getUserId());
     }
 
     public boolean checkPassword(String username, String password) {

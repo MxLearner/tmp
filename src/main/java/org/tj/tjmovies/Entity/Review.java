@@ -1,10 +1,8 @@
 package org.tj.tjmovies.Entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
+import org.w3c.dom.Text;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -12,16 +10,17 @@ import java.util.Date;
 @Entity
 @Data
 @Table(name = "review")
-public class Comment {
+public class Review {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "reviewid")
-    private int id;
+    private Long reviewId;
 
     @Column(name = "userid")
-    private int userId;
+    private String userId;
 
     @Column(name = "movieid")
-    private int movieId;
+    private String movieId;
 
     @Column(name = "text")
     private String text;
@@ -31,4 +30,5 @@ public class Comment {
 
     @Column(name = "score", precision = 3, scale = 1) // 总位数3，小数位数1
     private BigDecimal score;
+
 }

@@ -10,7 +10,8 @@ import org.tj.tjmovies.Entity.Enum.UserRole;
 public class User {
     @Id
     @Column(name = "userid")
-    private int userId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long userId;
 
     private String username;
 

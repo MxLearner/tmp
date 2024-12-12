@@ -17,6 +17,10 @@ public class MovieService {
     }
 
     public List<Movie> getMoviesByTitle(String title) {
-        return movieDAO.findAllByTitle(title);
+        return movieDAO.findAllByTitleContaining(title);
+    }
+
+    public List<Movie> getMoviesById(Long id) {
+        return movieDAO.findAllById(id);
     }
 }
