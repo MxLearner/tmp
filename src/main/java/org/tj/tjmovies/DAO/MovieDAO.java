@@ -9,4 +9,6 @@ public interface MovieDAO extends JpaRepository<Movie, String> {
     List<Movie> findAllById(Long id);
 
     List<Movie> findAllByTitleContaining(String title);
+
+    List<MovieProjection> findAllBy();
 }

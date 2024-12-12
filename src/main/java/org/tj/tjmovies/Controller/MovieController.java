@@ -2,6 +2,7 @@ package org.tj.tjmovies.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.tj.tjmovies.DAO.MovieProjection;
 import org.tj.tjmovies.Entity.Movie;
 import org.tj.tjmovies.Service.MovieService;
 
@@ -17,8 +18,8 @@ public class MovieController {
     private MovieService movieService;
 
     @GetMapping("/movies")
-    public List<Movie> getMovies() {
-        return movieService.getMovies();
+    public List<MovieProjection> getMovies() {
+        return movieService.getMoviesWithSpecificColumns();
     }
 
     @PostMapping("/movies")
