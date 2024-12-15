@@ -24,7 +24,7 @@ public class ReviewService {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
             Date date = sdf.parse(newReview.get("reviewDate"));
-            reviewDAO.insertReview(newReview.get("user_id"),
+            reviewDAO.insertReview(newReview.get("userId"),
                     newReview.get("movie_id"), newReview.get("score"), newReview.get("text"),
                     date);
             return "success";

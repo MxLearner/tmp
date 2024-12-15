@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@CrossOrigin(origins = "")
+@CrossOrigin(origins = "http://localhost:5173")
 @RequestMapping("/api")
 public class MovieController {
     @Autowired
@@ -31,6 +31,7 @@ public class MovieController {
         Map<String, Object> response = new HashMap<>();
         List<Movie> movie=movieService.getMoviesById(Long.valueOf(id.get("movie_id")));
         response.put("movie", movie);
+
         if(!movie.isEmpty()){
             response.put("message", "查找成功");
         }
