@@ -6,4 +6,5 @@ public interface MovieProjection {
     String getTitle();
     String getRating();
     String getReleaseDate();
+    String getImageSrc();
 }
