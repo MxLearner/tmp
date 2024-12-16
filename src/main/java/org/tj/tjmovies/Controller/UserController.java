@@ -4,9 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.tj.tjmovies.Entity.User;
 import org.tj.tjmovies.Service.UserService;
 
-import java.net.URI;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:5173")
@@ -16,17 +18,23 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/register")
-    public ResponseEntity<String> CreateUser(String username, String password, String email) {
+    public ResponseEntity<Map<String, String>> CreateUser(String username, String password, String email) {
         if (password.length() < 6) {
-            return ResponseEntity.badRequest().body("密码长度至少6位!");
+            return ResponseEntity.badRequest().body(Map.of("error", "密码长度至少6位!"));
         }
         if (userService.checkUsername(username)) {
-            return ResponseEntity.badRequest().body("用户名已存在!");
+            return ResponseEntity.badRequest().body(Map.of("error", "用户名已存在!"));
         }
         if (userService.checkEmail(email)) {
-            return ResponseEntity.badRequest().body("该邮箱已注册!");
+            return ResponseEntity.badRequest().body(Map.of("error", "该邮箱已注册!"));
         }
-        return ResponseEntity.created(URI.create(userService.CreateUser(username, password, email).toString())).body("注册成功!");
+        User user = userService.CreateUser(username, password, email);
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "注册成功!");
+        response.put("userId", Long.toString(user.getUserId()));
+        response.put("username", user.getUsername());
+        response.put("email", user.getEmail());
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @PostMapping("/login")
