@@ -13,7 +13,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @RestController
-@CrossOrigin(origins = "")
+@CrossOrigin(origins = "http://localhost:5173")
 @RequestMapping("/api")
 public class PostController {
     @Autowired
