@@ -28,23 +28,20 @@ public class UserController {
         if (userService.checkEmail(email)) {
             return ResponseEntity.badRequest().body(Map.of("error", "该邮箱已注册!"));
         }
-        User user = userService.CreateUser(username, password, email);
-        Map<String, String> response = new HashMap<>();
-        response.put("message", "注册成功!");
-        response.put("userId", Long.toString(user.getUserId()));
-        response.put("username", user.getUsername());
-        response.put("email", user.getEmail());
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        userService.CreateUser(username, password, email);
+        return ResponseEntity.status(HttpStatus.CREATED).body(Map.of("message", "注册成功!"));
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> Login(String username, String password) {
-        if (userService.checkPassword(username, password)) {
-            return ResponseEntity.ok("登录成功");
-        } else {
-            return ResponseEntity
-                    .status(HttpStatus.UNAUTHORIZED)
-                    .body("用户名或密码错误");
+    public ResponseEntity<Map<String, String>> Login(String username, String password) {
+        User user = userService.FindUser(username, password);
+        if (user == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("error", "用户名或密码错误"));
         }
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "登录成功!");
+        response.put("userId", Long.toString(user.getUserId()));
+        response.put("email", user.getEmail());
+        return ResponseEntity.ok(response);
     }
 }
