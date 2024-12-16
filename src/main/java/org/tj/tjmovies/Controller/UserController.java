@@ -44,4 +44,17 @@ public class UserController {
         response.put("email", user.getEmail());
         return ResponseEntity.ok(response);
     }
+
+    @PostMapping("/changePassword")
+    public ResponseEntity<String> ChangePassword(String username, String oldPassword, String newPassword) {
+        if (newPassword.length() < 6) {
+            return ResponseEntity.badRequest().body("新密码长度至少6位!");
+        }
+        if (userService.UpdatePassword(username, oldPassword, newPassword)) {
+            return ResponseEntity.ok("密码修改成功!");
+        }
+        else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("用户名或旧密码错误!");
+        }
+    }
 }

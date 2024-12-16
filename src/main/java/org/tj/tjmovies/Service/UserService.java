@@ -39,4 +39,15 @@ public class UserService {
         }
         return null;
     }
+
+    //修改密码
+    public boolean UpdatePassword(String username, String oldPassword, String newPassword) {
+        User user = userDAO.findByUsername(username).orElse(null);
+        if (user != null && user.getPassword().equals(oldPassword)) {
+            user.setPassword(newPassword);
+            userDAO.save(user);
+            return true;
+        }
+        return false;
+    }
 }
