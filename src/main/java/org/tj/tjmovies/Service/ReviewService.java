@@ -21,7 +21,8 @@ public class ReviewService {
     }
 
     public String saveReview(Map<String, String> newReview) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX");
+
         try {
             Date date = sdf.parse(newReview.get("reviewDate"));
             reviewDAO.insertReview(newReview.get("userId"),
