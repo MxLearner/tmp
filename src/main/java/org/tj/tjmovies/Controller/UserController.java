@@ -26,7 +26,7 @@ public class UserController {
         if (userService.checkEmail(email)) {
             return ResponseEntity.badRequest().body("该邮箱已注册!");
         }
-        return ResponseEntity.created(URI.create(userService.CreateUser(username, password, email))).body("注册成功!");
+        return ResponseEntity.created(URI.create(userService.CreateUser(username, password, email).toString())).body("注册成功!");
     }
 
     @PostMapping("/login")

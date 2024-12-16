@@ -21,15 +21,15 @@ public class UserService {
         return userDAO.findByEmail(email).isPresent();
     }
 
-    // 创建用户，返回userId的字符串
-    public String CreateUser(String username, String password, String email) {
+    // 创建用户，返回User
+    public User CreateUser(String username, String password, String email) {
         User user = new User();
         user.setUsername(username);
         user.setPassword(password);
         user.setEmail(email);
         user.setRole(UserRole.user);
         userDAO.save(user);
-        return Long.toString(user.getUserId());
+        return user;
     }
 
     public boolean checkPassword(String username, String password) {
