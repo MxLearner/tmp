@@ -18,7 +18,7 @@ public class PostService {
     private PostDAO postDAO;
 
     public String savePost(Map<String, String> newReview) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX");
         try {
             Date date = sdf.parse(newReview.get("post_date"));
             postDAO.insertReview(newReview.get("movie_id"),

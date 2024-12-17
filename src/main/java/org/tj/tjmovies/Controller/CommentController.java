@@ -32,7 +32,7 @@ public class CommentController {
         return response;
     }
 
-    @GetMapping("/comments")
+    @PostMapping("/newcomments")
     public Map<String, Object> getAllComments(@RequestBody Map<String, String> newComment) {
         Map<String, Object> response = new HashMap<>();
         List<Comment> comment=commentService.getAllComments(newComment);

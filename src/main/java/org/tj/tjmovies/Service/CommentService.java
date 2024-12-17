@@ -18,9 +18,9 @@ public class CommentService {
     private CommentDAO commentDAO;
 
     public String saveComment(Map<String, String> newComment) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX");
         try {
-            Date date = sdf.parse(newComment.get("post_date"));
+            Date date = sdf.parse(newComment.get("comment_date"));
             commentDAO.insertComment(newComment.get("post_id"),
                     newComment.get("userId"), newComment.get("text"),
                     date);
