@@ -21,7 +21,7 @@ public class CommentController {
 
     @PostMapping("/comments")
     //不知道前端为什么这么要求api，传了post又返回post
-    public Map<String, Object> savePost(@RequestBody Map<String, String> newComment) {
+    public Map<String, Object> saveComment(@RequestBody Map<String, String> newComment) {
         Map<String, Object> response = new HashMap<>();
         if(Objects.equals(commentService.saveComment(newComment), "success")){
             response.put("message","评论成功");
