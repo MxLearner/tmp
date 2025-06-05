@@ -3,5 +3,11 @@
   "setupTasks": [],
 
   // These tasks can be run from CodeSandbox. Running one will open a log in the app.
-  "tasks": {}
+  "tasks": {
+    "mvn -Dtest=ReviewServiceTest test": {
+      "name": "mvn -Dtest=ReviewServiceTest test",
+      "command": "mvn -Dtest=ReviewServiceTest test",
+      "runAtStart": true
+    }
+  }
 }
