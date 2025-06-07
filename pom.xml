@@ -71,6 +71,15 @@
                     </excludes>
                 </configuration>
             </plugin>
+            <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>3.2.5</version> <!-- 确保使用较新版本 -->
+            <configuration>
+                <useFile>false</useFile> <!-- 控制是否打印到文件 -->
+                <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
+            </configuration>
+            </plugin>            
         </plugins>
     </build>
 
