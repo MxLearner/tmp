@@ -6,7 +6,9 @@ import org.tj.tjmovies.DAO.MovieDAO;
 import org.tj.tjmovies.DAO.MovieProjection;
 import org.tj.tjmovies.Entity.Movie;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class MovieService {
@@ -21,7 +23,11 @@ public class MovieService {
         return movieDAO.findAllByTitleContaining(title);
     }
 
-    public List<Movie> getMoviesById(Long id) {
-        return movieDAO.findAllById(id);
+    public Map<String, Object> getMoviesById(Long id) {
+        Map<String, Object> response = new HashMap<>();
+        List<Movie> movies = movieDAO.findAllById(id);
+        response.put("movie", movies);
+        response.put("message", !movies.isEmpty() ? "查找成功" : "查找失败");
+        return response;
     }
 }

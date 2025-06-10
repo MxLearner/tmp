@@ -1,13 +1,10 @@
 package org.tj.tjmovies.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.tj.tjmovies.Entity.User;
 import org.tj.tjmovies.Service.UserService;
 
-import java.util.HashMap;
 import java.util.Map;
 
 @RestController
@@ -19,42 +16,16 @@ public class UserController {
 
     @PostMapping("/register")
     public ResponseEntity<Map<String, String>> CreateUser(String username, String password, String email) {
-        if (password.length() < 6) {
-            return ResponseEntity.badRequest().body(Map.of("error", "密码长度至少6位!"));
-        }
-        if (userService.checkUsername(username)) {
-            return ResponseEntity.badRequest().body(Map.of("error", "用户名已存在!"));
-        }
-        if (userService.checkEmail(email)) {
-            return ResponseEntity.badRequest().body(Map.of("error", "该邮箱已注册!"));
-        }
-        userService.CreateUser(username, password, email);
-        return ResponseEntity.status(HttpStatus.CREATED).body(Map.of("message", "注册成功!"));
+        return userService.registerUser(username, password, email);
     }
 
     @PostMapping("/login")
     public ResponseEntity<Map<String, String>> Login(String username, String password) {
-        User user = userService.FindUser(username, password);
-        if (user == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("error", "用户名或密码错误"));
-        }
-        Map<String, String> response = new HashMap<>();
-        response.put("message", "登录成功!");
-        response.put("userId", Long.toString(user.getUserId()));
-        response.put("email", user.getEmail());
-        return ResponseEntity.ok(response);
+        return userService.loginUser(username, password);
     }
 
     @PostMapping("/changePassword")
     public ResponseEntity<String> ChangePassword(String username, String oldPassword, String newPassword) {
-        if (newPassword.length() < 6) {
-            return ResponseEntity.badRequest().body("新密码长度至少6位!");
-        }
-        if (userService.UpdatePassword(username, oldPassword, newPassword)) {
-            return ResponseEntity.ok("密码修改成功!");
-        }
-        else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("用户名或旧密码错误!");
-        }
+        return userService.changeUserPassword(username, oldPassword, newPassword);
     }
 }

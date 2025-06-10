@@ -3,42 +3,51 @@ package org.tj.tjmovies.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.tj.tjmovies.DAO.PostDAO;
-import org.tj.tjmovies.Entity.Movie;
 import org.tj.tjmovies.Entity.Post;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 @Service
 public class PostService {
     @Autowired
     private PostDAO postDAO;
 
-    public String savePost(Map<String, String> newReview) {
+    public Map<String, Object> savePost(Map<String, String> newPost) {
+        Map<String, Object> response = new HashMap<>();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX");
+        
         try {
-            Date date = sdf.parse(newReview.get("post_date"));
-            if(newReview.get("movie_id")==null
-                    || newReview.get("userId")==null
-                    || newReview.get("title")==null
-                    || newReview.get("text")==null) {
-                return "Missing required field";
+            if(newPost.get("movie_id") == null
+                    || newPost.get("userId") == null
+                    || newPost.get("title") == null
+                    || newPost.get("text") == null
+                    || newPost.get("post_date") == null) {
+                response.put("error", "发布失败");
+                return response;
             }
-            postDAO.insertReview(newReview.get("movie_id"),
-                    newReview.get("userId"), newReview.get("title"), newReview.get("text"),
+
+            Date date = sdf.parse(newPost.get("post_date"));
+            postDAO.insertReview(newPost.get("movie_id"),
+                    newPost.get("userId"), newPost.get("title"), newPost.get("text"),
                     date);
-            return "success";
+            response.put("message", "发布成功");
+            return response;
         } catch (ParseException e) {
             e.printStackTrace();
-            return e.getMessage();
+            response.put("error", "发布失败");
+            return response;
         }
     }
 
-    public List<Post> getAllPosts() {
-        return postDAO.findAll();
+    public Map<String, Object> getAllPosts() {
+        Map<String, Object> response = new HashMap<>();
+        List<Post> posts = postDAO.findAll();
+        response.put("post", posts);
+        return response;
     }
 }
