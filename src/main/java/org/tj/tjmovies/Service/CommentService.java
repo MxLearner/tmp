@@ -31,16 +31,17 @@ public class CommentService {
             response.put("error", "缺少必要字段");
             return ResponseEntity.badRequest().body(response.toString());
         }
-        
+
+        if (newComment.get("text").trim().isEmpty()) {
+            response.put("error", "评论不能为空");
+            return ResponseEntity.badRequest().body(response.toString());
+        }
+
         if (newComment.get("text").length() > 200) {
             response.put("error", "超过上限");
             return ResponseEntity.badRequest().body(response.toString());
         }
-        
-        if (userDAO.findById(newComment.get("userId")).isEmpty()) {
-            response.put("error", "无用户");
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response.toString());
-        }
+
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX");
         try {
@@ -59,8 +60,19 @@ public class CommentService {
 
     public Map<String, Object> getAllComments(Map<String, String> newComment) {
         Map<String, Object> response = new HashMap<>();
-        List<Comment> comments = commentDAO.findAllByPostId(Long.valueOf(newComment.get("post_id")));
+
+        // 先检查 post_id 是否为 null
+        String postIdStr = newComment.get("post_id");
+        if (postIdStr == null) {
+            response.put("error", "缺少必要字段: post_id");
+            return response;
+        }
+
+        Long postId = Long.valueOf(postIdStr);  // 转换 post_id
+        List<Comment> comments = commentDAO.findAllByPostId(postId);
         response.put("comment", comments);
+
         return response;
     }
+
 }
