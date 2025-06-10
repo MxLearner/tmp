@@ -68,12 +68,12 @@ class ReviewServiceTest {
     void getReviewByMovieid_shouldReturnReviewList() {
         Review r1 = new Review();
         r1.setUserId("1001");
-        r1.setMovieId("2002");
+        r1.setMovie_id("2002");
         r1.setText("评价1");
 
         Review r2 = new Review();
         r2.setUserId("1002");
-        r2.setMovieId("2002");
+        r2.setMovie_id("2002");
         r2.setText("评价2");
 
         List<Review> dummyList = Arrays.asList(r1, r2);

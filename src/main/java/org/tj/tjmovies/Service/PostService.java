@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @Service
 public class PostService {
@@ -21,6 +22,12 @@ public class PostService {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX");
         try {
             Date date = sdf.parse(newReview.get("post_date"));
+            if(newReview.get("movie_id")==null
+                    || newReview.get("userId")==null
+                    || newReview.get("title")==null
+                    || newReview.get("text")==null) {
+                return "Missing required field";
+            }
             postDAO.insertReview(newReview.get("movie_id"),
                     newReview.get("userId"), newReview.get("title"), newReview.get("text"),
                     date);

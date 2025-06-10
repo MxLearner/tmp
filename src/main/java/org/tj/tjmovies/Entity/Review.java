@@ -31,4 +31,6 @@ public class Review {
     @Column(name = "score", precision = 3, scale = 1) // 总位数3，小数位数1
     private BigDecimal score;
 
+    public void setMovie_id(String number) {
+    }
 }

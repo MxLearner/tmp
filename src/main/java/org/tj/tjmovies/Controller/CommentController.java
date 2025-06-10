@@ -1,6 +1,8 @@
 package org.tj.tjmovies.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.tj.tjmovies.Entity.Comment;
 import org.tj.tjmovies.Entity.Post;
@@ -21,22 +23,26 @@ public class CommentController {
 
     @PostMapping("/comments")
     //不知道前端为什么这么要求api，传了post又返回post
-    public Map<String, Object> saveComment(@RequestBody Map<String, String> newComment) {
+    public ResponseEntity<String> saveComment(@RequestBody Map<String, String> newComment) {
         Map<String, Object> response = new HashMap<>();
-        if(Objects.equals(commentService.saveComment(newComment), "success")){
+        String res=commentService.saveComment(newComment);
+        if(Objects.equals(res, "success")){
             response.put("message","评论成功");
         }
         else{
-            response.put("error","评论失败");
+            response.put("error",res);
+            if(Objects.equals(res, "无用户"))
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response.toString());
+            return ResponseEntity.badRequest().body(response.toString());
         }
-        return response;
+        return ResponseEntity.ok().body(response.toString());
     }
 
     @PostMapping("/newcomments")
     public Map<String, Object> getAllComments(@RequestBody Map<String, String> newComment) {
         Map<String, Object> response = new HashMap<>();
         List<Comment> comment=commentService.getAllComments(newComment);
-        response.put("comment",comment);
+        response.put("comment", comment);
         return response;
     }
 }

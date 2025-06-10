@@ -9,7 +9,7 @@ import org.tj.tjmovies.Service.ReviewService;
 import java.util.*;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "*")
 @RequestMapping("/api")
 public class ReviewController {
     @Autowired
@@ -29,7 +29,7 @@ public class ReviewController {
 
     @PostMapping("/new_review")
     public ResponseEntity<String> saveReview(@RequestBody Map<String, String> newReview) {
-
+        System.out.println(newReview);
         if(Objects.equals(reviewService.saveReview(newReview), "success")){
             return ResponseEntity.ok("插入成功"); // 返回 200 状态码
         }
