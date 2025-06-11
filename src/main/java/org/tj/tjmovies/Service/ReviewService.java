@@ -30,12 +30,34 @@ public class ReviewService {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX");
 
         try {
+            // 非空校验
+            if (newReview.get("userId") == null ||
+                    newReview.get("movie_id") == null ||
+                    newReview.get("score") == null ||
+                    newReview.get("text") == null ||
+                    newReview.get("reviewDate") == null ||
+                    newReview.get("text").trim().isEmpty()) {
+                return ResponseEntity.badRequest().body("插入失败");
+            }
+
+            // 检查分数合法性
+            int score = Integer.parseInt(newReview.get("score"));
+            if (score < 0 || score > 10) {
+                return ResponseEntity.badRequest().body("插入失败");
+            }
+
+            // 检查时间合法性
             Date date = sdf.parse(newReview.get("reviewDate"));
+            if (date.after(new Date())) {
+                return ResponseEntity.badRequest().body("时间不能是未来");
+            }
+
             reviewDAO.insertReview(newReview.get("userId"),
                     newReview.get("movie_id"), newReview.get("score"), newReview.get("text"),
                     date);
             return ResponseEntity.ok("插入成功");
-        } catch (ParseException e) {
+
+        } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.badRequest().body("插入失败");
         }
