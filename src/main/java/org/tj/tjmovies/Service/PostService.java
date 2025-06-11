@@ -14,29 +14,46 @@ import java.util.Map;
 
 @Service
 public class PostService {
+
     @Autowired
     private PostDAO postDAO;
 
     public Map<String, Object> savePost(Map<String, String> newPost) {
         Map<String, Object> response = new HashMap<>();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX");
-        
+
         try {
-            if(newPost.get("movie_id") == null
-                    || newPost.get("userId") == null
-                    || newPost.get("title") == null
-                    || newPost.get("text") == null
-                    || newPost.get("post_date") == null) {
+            // 必填字段是否为 null 或空字符串
+            if (isBlank(newPost.get("movie_id")) ||
+                    isBlank(newPost.get("userId")) ||
+                    isBlank(newPost.get("title")) ||
+                    isBlank(newPost.get("text")) ||
+                    isBlank(newPost.get("post_date"))) {
                 response.put("error", "发布失败");
                 return response;
             }
 
+            // 检查日期格式
             Date date = sdf.parse(newPost.get("post_date"));
-            postDAO.insertReview(newPost.get("movie_id"),
-                    newPost.get("userId"), newPost.get("title"), newPost.get("text"),
-                    date);
+
+            // 检查是否为未来时间
+            if (date.after(new Date())) {
+                response.put("error", "发布时间不能晚于当前时间");
+                return response;
+            }
+
+            // 调用 DAO 插入
+            postDAO.insertReview(
+                    newPost.get("movie_id"),
+                    newPost.get("userId"),
+                    newPost.get("title"),
+                    newPost.get("text"),
+                    date
+            );
+
             response.put("message", "发布成功");
             return response;
+
         } catch (ParseException e) {
             e.printStackTrace();
             response.put("error", "发布失败");
@@ -49,5 +66,10 @@ public class PostService {
         List<Post> posts = postDAO.findAll();
         response.put("post", posts);
         return response;
+    }
+
+    // 工具方法：判空或纯空白
+    private boolean isBlank(String s) {
+        return s == null || s.trim().isEmpty();
     }
 }
